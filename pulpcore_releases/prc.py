@@ -70,6 +70,10 @@ async def print_compatible_plugins(pulpcore_releases, total_releases=3):
                     plugin_requirements = req_data["info"]["requires_dist"]
                 if "pulpcore-plugin" in str(plugin_requirements):
                     break
+                if not plugin_requirements:
+                    full_plugin_name = f"{plugin}-{plugin_version}"
+                    print(f" -> {full_plugin_name: <35} requirement: Null")
+                    break
                 pulpcore_req_for_plugin = Requirement(
                     [r for r in plugin_requirements if "pulpcore" in r][0]
                 )
